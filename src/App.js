@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useCallback, useRef } from "react"
 import TodoTemplate from "./components/TodoTemplate"
 import TodoInsert from "./components/TodoInsert"
 import TodoList from "./components/TodoList"
@@ -22,10 +22,34 @@ const App = () => {
     }
   ])
 
+  const nextId = useRef(4);
+
+  const onInsert = useCallback(text => {
+    const newTodo = {
+      key: nextId.current,
+      text: text,
+      checked: false
+    }
+    setTodo([...todos, newTodo]);
+    nextId.current += 1;
+  }, [todos]);
+
+  const onRemove = useCallback(id => {
+    setTodo(todos.filter(todo => todo.id !== id))
+  }, [todos])
+
+  const onToggle = useCallback(id => {
+    setTodo(
+      todos.map(todo => (
+        todo.id === id ? {...todo, checked: !todo.checked} : todo
+      ))
+    )
+  }, [todos])
+
   return (
     <TodoTemplate>
-      <TodoInsert />
-      <TodoList todos = {todos} />
+      <TodoInsert onInsert = {onInsert}/>
+      <TodoList todos = {todos} onRemove = {onRemove} onToggle = {onToggle} />
     </TodoTemplate>
   )
 }
