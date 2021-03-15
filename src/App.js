@@ -30,21 +30,21 @@ const App = () => {
       text: text,
       checked: false
     }
-    setTodo([...todos, newTodo]);
+    setTodo(todos => [...todos, newTodo]);
     nextId.current += 1;
-  }, [todos]);
+  }, []);
 
   const onRemove = useCallback(id => {
-    setTodo(todos.filter(todo => todo.id !== id))
-  }, [todos])
+    setTodo(todos => todos.filter(todo => todo.id !== id))
+  }, [])
 
   const onToggle = useCallback(id => {
     setTodo(
-      todos.map(todo => 
+      todos => todos.map(todo => 
         todo.id === id ? {...todo, checked: !todo.checked} : todo,
       ),
     );
-  }, [todos])
+  },[])
 
   return (
     <TodoTemplate>
