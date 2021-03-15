@@ -26,7 +26,7 @@ const App = () => {
 
   const onInsert = useCallback(text => {
     const newTodo = {
-      key: nextId.current,
+      id: nextId.current,
       text: text,
       checked: false
     }
@@ -40,10 +40,10 @@ const App = () => {
 
   const onToggle = useCallback(id => {
     setTodo(
-      todos.map(todo => (
-        todo.id === id ? {...todo, checked: !todo.checked} : todo
-      ))
-    )
+      todos.map(todo => 
+        todo.id === id ? {...todo, checked: !todo.checked} : todo,
+      ),
+    );
   }, [todos])
 
   return (

@@ -21,7 +21,7 @@ const TodoInsert = ({onInsert}) => {
                 placeholder = "Input todo things..."
                 value = {value}
                 onChange = {onChange}
-            ></input>
+            />
             <button type = "submit">
                 <MdAdd />
             </button>
